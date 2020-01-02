@@ -7,11 +7,13 @@ NAME_ARR=($(cat $DATA_FILE| grep '^Host' | awk '{print $2}'))
 
 HOST_ARR=($(cat $DATA_FILE| grep 'HostName' | awk '{print $2}'))
 
+COMMENT_ARR=($(cat $DATA_FILE|grep '^Host' -B 1 |awk '{print substr($0,3); getline; getline}'))
+
 arr_len=${#NAME_ARR[@]}
 
 for (( i = 0; i < $arr_len; i++ )); do
 if [[ ${TYPE_ARR[$i]} -eq $1 ]]; then
-  printf "%2d) %-20s %-20s\n" $i ${HOST_ARR[$i]} ${NAME_ARR[$i]}
+  printf "%2d) %-20s %-12s %s\n" $i ${HOST_ARR[$i]} ${NAME_ARR[$i]} ${COMMENT_ARR[$i]}
 fi
 done
 
