@@ -19,16 +19,23 @@ done
 
 while true; do
 
-   read -p "请输入你需要登录的服务器序号：" select
+   read -p "请输入你需要登录的服务器序号(q = 退出)：" select
 
    if [[ ${arr_len} -gt $select ]] && [[ $select -ge 0 ]]; then
 
      break
+   elif [ $select == 'q' ]; then
+
+   	break
 
    fi
 
 done
 
+if [ $select == 'q' ]; then
+	exit
+fi
+
 echo 正在进入 ${NAME_ARR[$select]}（${HOST_ARR[$select]}）
 
-ssh ${NAME_ARR[$select]}
+ssh ${NAME_ARR[$select]}%
